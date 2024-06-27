@@ -11,7 +11,7 @@ class CommentArea extends Component {
     console.log(this.props);
     try {
       const resp = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/",
+        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin,
         {
           headers: {
             Authorization:
@@ -22,7 +22,7 @@ class CommentArea extends Component {
       );
       if (resp.ok) {
         const data = await resp.json();
-        this.setState({ reviews: data.filter(review => review.elementId === this.props.asin) });
+        this.setState({ reviews: data });
       } else {
         throw new Error("Errore nel recapitare i dati");
       }
@@ -39,7 +39,7 @@ class CommentArea extends Component {
     return (
       <>
         <CommentsList reviews={this.state.reviews} />
-        <AddComment />
+        <AddComment asin={this.props.asin} />
       </>
     );
   }
