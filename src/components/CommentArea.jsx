@@ -1,10 +1,12 @@
 import { Component } from "react";
 import CommentsList from "./CommentsList";
 import AddComment from "./AddComment";
+import IsLoading from "./IsLoading";
 
 class CommentArea extends Component {
   state = {
     reviews: [],
+    isLoading: true,
   };
 
   fetchComments = async () => {
@@ -23,6 +25,7 @@ class CommentArea extends Component {
       if (resp.ok) {
         const data = await resp.json();
         this.setState({ reviews: data });
+        this.setState({ isLoading: false });
       } else {
         throw new Error("Errore nel recapitare i dati");
       }
@@ -38,7 +41,7 @@ class CommentArea extends Component {
   render() {
     return (
       <>
-        <CommentsList reviews={this.state.reviews} />
+        {this.state.isLoading ? <IsLoading /> : <CommentsList reviews={this.state.reviews} />}
         <AddComment asin={this.props.asin} />
       </>
     );
