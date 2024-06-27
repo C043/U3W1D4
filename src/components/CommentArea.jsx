@@ -2,11 +2,13 @@ import { Component } from "react";
 import CommentsList from "./CommentsList";
 import AddComment from "./AddComment";
 import IsLoading from "./IsLoading";
+import { Alert } from "react-bootstrap";
 
 class CommentArea extends Component {
   state = {
     reviews: [],
     isLoading: true,
+    hasError: false,
   };
 
   fetchComments = async () => {
@@ -30,6 +32,7 @@ class CommentArea extends Component {
         throw new Error("Errore nel recapitare i dati");
       }
     } catch (error) {
+      this.setState({ hasError: true, isLoading: false });
       console.log(error);
     }
   };
@@ -41,6 +44,11 @@ class CommentArea extends Component {
   render() {
     return (
       <>
+        {this.state.hasError && (
+          <Alert className="mt-3" variant="danger">
+            Qualcosa è andato storto!
+          </Alert>
+        )}
         {this.state.isLoading ? <IsLoading /> : <CommentsList reviews={this.state.reviews} />}
         <AddComment asin={this.props.asin} />
       </>
