@@ -10,6 +10,7 @@ class SingleBook extends Component {
     return (
       <Col xs="12" md="6" lg="4" xl="3">
         <Card
+          type="button"
           className={this.state.selected ? "border-danger" : ""}
           style={{ width: "100%" }}
           onClick={() => this.setState(prevState => ({ selected: !prevState.selected }))}
