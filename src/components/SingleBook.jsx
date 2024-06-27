@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Badge, Button, Card, Col } from "react-bootstrap";
+import { Accordion, Badge, Button, Card, Col } from "react-bootstrap";
 import CommentArea from "./CommentArea";
 
 class SingleBook extends Component {
@@ -24,7 +24,12 @@ class SingleBook extends Component {
             <Button variant="primary">Buy</Button>
           </Card.Body>
         </Card>
-        {this.state.selected && <CommentArea asin={this.props.book.asin} />}
+        <Accordion defaultActiveKey="" onClick={() => this.setState(prevState => ({ selected: !prevState.selected }))}>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Comments</Accordion.Header>
+            <Accordion.Body>{this.state.selected && <CommentArea asin={this.props.book.asin} />}</Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </Col>
     );
   }
