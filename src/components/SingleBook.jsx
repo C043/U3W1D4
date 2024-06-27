@@ -21,15 +21,23 @@ class SingleBook extends Component {
               <Card.Title className="line-clamp m-0 fs-6">{this.props.book.title}</Card.Title>
               <Badge>{this.props.book.price}$</Badge>
             </div>
-            <Button variant="primary">Buy</Button>
+            <Button variant="primary" className="mb-5">
+              Buy
+            </Button>
           </Card.Body>
+          <Accordion
+            className="position-absolute bottom-0 w-100"
+            defaultActiveKey=""
+            onClick={() => this.setState(prevState => ({ selected: !prevState.selected }))}
+          >
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>Comments</Accordion.Header>
+              <Accordion.Body>
+                <CommentArea asin={this.props.book.asin} />
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         </Card>
-        <Accordion defaultActiveKey="" onClick={() => this.setState(prevState => ({ selected: !prevState.selected }))}>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>Comments</Accordion.Header>
-            <Accordion.Body>{this.state.selected && <CommentArea asin={this.props.book.asin} />}</Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
       </Col>
     );
   }
