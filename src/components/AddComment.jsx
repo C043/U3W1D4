@@ -24,6 +24,7 @@ class AddComment extends Component {
       });
       if (resp.ok) {
         window.alert("Inviato!");
+        this.setState({ review: { comment: "", rate: 5, elementId: this.props.asin } });
       } else {
         throw new Error("Invio fallito");
       }

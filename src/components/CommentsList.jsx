@@ -6,10 +6,12 @@ class CommentsList extends Component {
     console.log("------>", this.props.reviews);
     {
       return (
-        this.props.reviews.length > 0 &&
-        this.props.reviews.map(review => (
-          <SingleComment key={review._id} comment={review.comment} author={review.author} rate={review.rate} />
-        ))
+        <div className="mt-2">
+          {this.props.reviews.length > 0 &&
+            this.props.reviews.map(review => (
+              <SingleComment key={review._id} comment={review.comment} author={review.author} rate={review.rate} />
+            ))}
+        </div>
       );
     }
   }
