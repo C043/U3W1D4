@@ -5,6 +5,7 @@ import CommentArea from "./CommentArea";
 class SingleBook extends Component {
   state = {
     selected: false,
+    open: false,
   };
   render() {
     return (
@@ -13,7 +14,8 @@ class SingleBook extends Component {
           type="button"
           className={this.state.selected ? "border-danger" : ""}
           style={{ width: "100%" }}
-          onClick={() => this.setState(prevState => ({ selected: !prevState.selected }))}
+          /*           onClick={() => this.setState(prevState => ({ selected: !prevState.selected }))}
+           */
         >
           <Card.Img variant="top" src={this.props.book.img} alt={this.props.book.title} style={{ height: "437px" }} />
           <Card.Body className="d-flex flex-column align-items-center justify-content-center gap-2">
@@ -25,16 +27,12 @@ class SingleBook extends Component {
               Buy
             </Button>
           </Card.Body>
-          <Accordion
-            className="position-absolute bottom-0 w-100"
-            defaultActiveKey=""
-            onClick={() => this.setState(prevState => ({ selected: !prevState.selected }))}
-          >
+          <Accordion className="position-absolute bottom-0 w-100">
             <Accordion.Item eventKey="0">
-              <Accordion.Header>Comments</Accordion.Header>
-              <Accordion.Body>
-                <CommentArea asin={this.props.book.asin} />
-              </Accordion.Body>
+              <Accordion.Header onClick={() => this.setState(prevState => ({ open: !prevState.open }))}>
+                Comments
+              </Accordion.Header>
+              <Accordion.Body>{this.state.open && <CommentArea asin={this.props.book.asin} />}</Accordion.Body>
             </Accordion.Item>
           </Accordion>
         </Card>

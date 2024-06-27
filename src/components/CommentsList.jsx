@@ -3,8 +3,6 @@ import SingleComment from "./SingleComment";
 
 class CommentsList extends Component {
   render() {
-    console.log("------>", this.props.reviews);
-
     return (
       <div className="mt-2">
         {this.props.reviews.length > 0 &&
