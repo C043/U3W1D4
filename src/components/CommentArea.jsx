@@ -6,8 +6,29 @@ class CommentArea extends Component {
   state = {
     reviews: [],
   };
-  fetchComments = () => {
+
+  fetchComments = async () => {
     console.log(this.props);
+    try {
+      const resp = await fetch(
+        "https://striveschool-api.herokuapp.com/api/comments/",
+        {
+          headers: {
+            Authorization:
+              "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZWQyNjdjMjM5YzAwMTUyZjRiMmUiLCJpYXQiOjE3MTk0ODc0NjQsImV4cCI6MTcyMDY5NzA2NH0.etOLICwJO7zEB3M0sNrl4SLSRePOVrlhw7mIBhrmOfE",
+          },
+        },
+        { method: "GET" }
+      );
+      if (resp.ok) {
+        const data = await resp.json();
+        this.setState({ reviews: data.filter(review => review.elementId === this.props.asin) });
+      } else {
+        throw new Error("Errore nel recapitare i dati");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   componentDidMount = () => {
@@ -17,9 +38,8 @@ class CommentArea extends Component {
   render() {
     return (
       <>
-        {/*         <CommentsList />
+        <CommentsList reviews={this.state.reviews} />
         <AddComment />
- */}
       </>
     );
   }

@@ -22,8 +22,8 @@ class SingleBook extends Component {
             </div>
             <Button variant="primary">Buy</Button>
           </Card.Body>
+          {this.state.selected && <CommentArea asin={this.props.book.asin} />}
         </Card>
-        {this.state.selected && <CommentArea />}
       </Col>
     );
   }
